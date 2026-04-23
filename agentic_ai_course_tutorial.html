@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI Course — Lecture 1 Tutorial</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --ink: #1a1814;
+    --ink2: #5a5650;
+    --ink3: #9a9590;
+    --accent: #1a4f8a;
+    --accent-light: #dce8f5;
+    --green: #2d6a4f;
+    --green-light: #d8f3dc;
+    --amber: #7d4e00;
+    --amber-light: #fff3cd;
+    --border: rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .site-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 2.5rem 2rem 2rem;
+  }
+  .header-inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .course-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.6rem;
+  }
+  .course-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+  .course-meta {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .course-meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* Main layout */
+  .main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  /* Section */
+  .section { margin-bottom: 2.5rem; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .card-body {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.7;
+  }
+
+  /* Two-col grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Concept box */
+  .concept-box {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.1rem 1.25rem;
+  }
+  .concept-box-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .concept-box-body {
+    font-size: 13px;
+    color: var(--ink2);
+    line-height: 1.65;
+  }
+
+  /* Tags */
+  .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 3px 9px;
+  }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-amber { background: var(--amber-light); color: var(--amber); }
+
+  /* Steps */
+  .steps { margin-top: 1rem; }
+  .step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 0.7rem;
+  }
+  .step-num {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .step-text {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.65;
+  }
+  .step-text strong { color: var(--ink); font-weight: 500; }
+
+  /* Prereqs table */
+  .prereq-table { width: 100%; }
+  .prereq-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  .prereq-row:last-child { border-bottom: none; }
+  .prereq-key { color: var(--ink2); }
+  .prereq-val { font-weight: 500; color: var(--ink); }
+
+  /* Projects */
+  .project-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.75rem;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 1rem;
+  }
+  .project-num-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .project-content {}
+  .project-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .project-desc {
+    font-size: 13.5px;
+    color: var(--ink2);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+
+  /* Philosophy list */
+  .philosophy-list { list-style: none; }
+  .philosophy-list li {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.7;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .philosophy-list li:last-child { border-bottom: none; }
+  .philosophy-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--ink3);
+  }
+  .philosophy-list li strong { color: var(--ink); font-weight: 500; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink3);
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .main { padding: 1.25rem 1rem 3rem; }
+    .site-header { padding: 1.75rem 1rem 1.5rem; }
+    .project-card { grid-template-columns: 1fr; gap: 0.5rem; }
+    .project-num-badge { width: 28px; height: 28px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="course-label">Lecture 1 — Inauguration Session · Tutorial Guide</div>
+    <h1 class="course-title">Agentic AI Course</h1>
+    <div class="course-meta">
+      <span>Instructor: Sachin Mishra</span>
+      <span>Data Scientist, Tata Technologies</span>
+      <span>5 years in ML &amp; GenAI</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- What was covered -->
+  <div class="section">
+    <div class="section-label">What this session covered</div>
+    <div class="card">
+      <div class="card-title">Session goal</div>
+      <div class="card-body">This was an inauguration class — no heavy coding. The aim was to introduce the instructor and students, walk through the full syllabus, explain the course structure, distinguish between Gen AI and Agentic AI, and preview all the projects to be built during the course.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Prerequisites</div>
+      <div class="card-body">
+        <div class="prereq-table">
+          <div class="prereq-row"><span class="prereq-key">Python basics</span><span class="prereq-val">Required</span></div>
+          <div class="prereq-row"><span class="prereq-key">OOP — classes &amp; objects</span><span class="prereq-val">Helpful</span></div>
+          <div class="prereq-row"><span class="prereq-key">Machine learning fundamentals</span><span class="prereq-val">Useful background</span></div>
+          <div class="prereq-row"><span class="prereq-key">Cloud (AWS / Azure)</span><span class="prereq-val">Covered in course</span></div>
+          <div class="prereq-row"><span class="prereq-key">LangChain / LangGraph</span><span class="prereq-val">Covered in course</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core concept -->
+  <div class="section">
+    <div class="section-label">Core concept — Gen AI vs Agentic AI</div>
+    <div class="grid-2">
+      <div class="concept-box">
+        <div class="concept-box-title">Generative AI</div>
+        <div class="concept-box-body">Takes an input and generates output — text, images, SQL queries, etc. It responds but does not take action on your behalf. Example: ChatGPT writing a LinkedIn post, or a RAG system answering a question from documents.</div>
+        <div class="tags">
+          <span class="tag tag-blue">Generates</span>
+          <span class="tag tag-blue">Responds</span>
+          <span class="tag tag-blue">No execution</span>
+        </div>
+      </div>
+      <div class="concept-box">
+        <div class="concept-box-title">Agentic AI</div>
+        <div class="concept-box-body">You give a goal. The system decides which tools or agents to invoke, executes tasks autonomously, and iterates in a loop until the goal is reached. An LLM sits at the center making decisions at every step.</div>
+        <div class="tags">
+          <span class="tag tag-green">Decides</span>
+          <span class="tag tag-green">Executes</span>
+          <span class="tag tag-green">Iterates</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">The autonomy scale</div>
+      <div class="card-body">Agentic AI is not binary — it's a spectrum from low autonomy (a Python function in a feedback loop) to high autonomy (a fully self-driven multi-agent pipeline with no human involvement). "Human in the loop" sits in the middle: the system handles most steps but a person reviews or approves key decisions.</div>
+    </div>
+  </div>
+
+  <!-- Examples -->
+  <div class="section">
+    <div class="section-label">Key examples explained in class</div>
+
+    <div class="card">
+      <div class="card-title">Text-to-SQL agentic loop (low-to-medium autonomy)</div>
+      <div class="card-body">The foundational agentic pattern shown in the lecture:</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>User writes a natural language question</strong> — e.g. "Show employees earning between 5,000 and 20,000."</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>LLM converts it to a SQL query</strong> automatically.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>A Python function executes the query</strong> on the real database and captures the result or error.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>If the query fails,</strong> the error trace is fed back to the LLM, which self-corrects and generates a new query.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>This loop repeats</strong> until a valid query succeeds. The automatic retry loop is what makes it "agentic."</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Multi-agent hiring pipeline (high autonomy)</div>
+      <div class="card-body">Used to illustrate what high autonomy looks like with multiple specialised agents communicating:</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>HR uploads a job description</strong> to a chatbot interface.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Agent 1</strong> parses the JD and auto-posts it to LinkedIn and Naukri via their APIs.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Agent 2</strong> monitors applications for 7 days, collects all applicants, and stores them in a database.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Agent 3</strong> pulls applications, parses resumes, matches them against the JD, and shortlists the top 3 candidates.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Agent 4</strong> schedules interviews by accessing Google/Teams calendar and emailing candidates.</div></div>
+        <div class="step"><div class="step-num">6</div><div class="step-text"><strong>Agent 5</strong> joins the interview, conducts the behavioural round, and produces a feedback report for HR.</div></div>
+        <div class="step"><div class="step-num">7</div><div class="step-text"><strong>Human in the loop</strong> for the final technical round — humans take over from here for the hiring decision.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Protocols & Frameworks -->
+  <div class="section">
+    <div class="section-label">Key concepts, protocols &amp; frameworks</div>
+    <div class="grid-2">
+      <div class="concept-box">
+        <div class="concept-box-title">MCP — Model Context Protocol</div>
+        <div class="concept-box-body">Anthropic's communication protocol for agents. Converts a machine learning endpoint (e.g. a salary predictor API) into a conversational tool that any LLM can invoke via natural language.</div>
+        <div class="tags"><span class="tag tag-blue">Protocol</span><span class="tag tag-blue">Will be covered</span></div>
+      </div>
+      <div class="concept-box">
+        <div class="concept-box-title">A2A — Agent-to-Agent Protocol</div>
+        <div class="concept-box-body">Google's emerging protocol for agents communicating directly with each other. Still evolving — will be added to the course once it stabilises.</div>
+        <div class="tags"><span class="tag tag-amber">Emerging</span><span class="tag tag-amber">May be added</span></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="concept-box">
+        <div class="concept-box-title">LangChain</div>
+        <div class="concept-box-body">A framework (described as a "wrapper company") for building GenAI and agentic pipelines. Its newest addition is "Deep Agents." Will be used in the course.</div>
+        <div class="tags"><span class="tag tag-green">Framework</span><span class="tag tag-green">In course</span></div>
+      </div>
+      <div class="concept-box">
+        <div class="concept-box-title">LangGraph</div>
+        <div class="concept-box-body">Built specifically for multi-agent, graph-based agentic systems. Treats agents as nodes and their interactions as edges. Used in the Travel Assistant and other projects.</div>
+        <div class="tags"><span class="tag tag-green">Framework</span><span class="tag tag-green">In course</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">RAG — Retrieval Augmented Generation</div>
+      <div class="card-body">You take data (PDFs, documents), embed it into a vector database, query it, feed results to an LLM, and the LLM generates an answer. The course will cover RAG with 500 GB+ datasets using Azure AI Search, plus RBAC (Role-Based Access Control) so users only receive answers from documents they're authorised to see.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Short-term vs long-term memory</div>
+      <div class="card-body">Agents must decide whether to store intermediate results temporarily (short-term, in context) or persistently (long-term, in a database). This distinction is part of agent design patterns and will be covered in depth.</div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="section">
+    <div class="section-label">Projects planned for the course</div>
+
+    <div class="project-card">
+      <div class="project-num-badge">1</div>
+      <div class="project-content">
+        <div class="project-title">LinkedIn Automation Agent</div>
+        <div class="project-desc">Generate a LinkedIn post from context you provide, refine it interactively through conversation, then automatically post it to your account via the LinkedIn API. Includes a human-in-the-loop review step before posting.</div>
+        <div class="tags"><span class="tag tag-amber">LinkedIn API</span><span class="tag tag-amber">Human-in-loop</span><span class="tag tag-amber">GenAI + Action</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">2</div>
+      <div class="project-content">
+        <div class="project-title">MCP Server — Local + Remote Architecture</div>
+        <div class="project-desc">Build local MCP servers (for desktop software like a 3D CAD tool) and remote MCP servers (for cloud APIs like BOM cost calculation). A salary-prediction MCP server was demonstrated live, integrated directly into ChatGPT's tool interface.</div>
+        <div class="tags"><span class="tag tag-blue">MCP Protocol</span><span class="tag tag-blue">ML as Tool</span><span class="tag tag-blue">ChatGPT integration</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">3</div>
+      <div class="project-content">
+        <div class="project-title">WhatsApp Multimodal Chatbot</div>
+        <div class="project-desc">A conversational agent inside WhatsApp. Handles text, images, and video. Replies are generated by an LLM agent. Useful for automated broadcasts, FAQs, or personal assistant tasks.</div>
+        <div class="tags"><span class="tag tag-green">Multimodal</span><span class="tag tag-green">WhatsApp API</span><span class="tag tag-green">LLM Agent</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">4</div>
+      <div class="project-content">
+        <div class="project-title">Multimodal RAG with GB-scale Data + RBAC</div>
+        <div class="project-desc">A RAG chatbot that handles hundreds of gigabytes of documents efficiently. Implements Role-Based Access Control so each user only gets answers from files they are permitted to see. Uses Azure AI Search for scalable retrieval.</div>
+        <div class="tags"><span class="tag tag-amber">RAG</span><span class="tag tag-amber">RBAC</span><span class="tag tag-amber">Azure AI Search</span><span class="tag tag-amber">Production-grade</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">5</div>
+      <div class="project-content">
+        <div class="project-title">Text-to-SQL Agent</div>
+        <div class="project-desc">A natural language interface to a database. The agent converts user questions into SQL, executes them, and self-corrects in a feedback loop whenever a query fails — the foundational agentic pattern covered in the lecture.</div>
+        <div class="tags"><span class="tag tag-blue">Agentic Loop</span><span class="tag tag-blue">SQL</span><span class="tag tag-blue">Self-correction</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">6</div>
+      <div class="project-content">
+        <div class="project-title">Multi-Agent Travel Assistant (ReAct Pattern)</div>
+        <div class="project-desc">A chatbot that proactively collects your travel preferences and then plans the entire trip — flights, hotels, itinerary — using multiple specialised agents. Integrates with real flight APIs in demo mode. Uses the ReAct (Reasoning + Acting) design pattern with LangGraph.</div>
+        <div class="tags"><span class="tag tag-green">Multi-agent</span><span class="tag tag-green">ReAct</span><span class="tag tag-green">LangGraph</span><span class="tag tag-green">Flight API</span></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num-badge">7</div>
+      <div class="project-content">
+        <div class="project-title">Deep Researcher Agent</div>
+        <div class="project-desc">Replicates ChatGPT's "Deep Research" feature. Crawls multiple websites autonomously, synthesises findings, and produces a detailed research report. Requires significant multi-agent orchestration engineering under the hood.</div>
+        <div class="tags"><span class="tag tag-amber">Web crawling</span><span class="tag tag-amber">Multi-agent</span><span class="tag tag-amber">Deep Research</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teaching philosophy -->
+  <div class="section">
+    <div class="section-label">Teaching approach &amp; philosophy</div>
+    <div class="card">
+      <div class="card-body">
+        <ul class="philosophy-list">
+          <li><strong>Start manual, then automate.</strong> Code will first be written from scratch in Python so concepts are clear, then tools like Cursor, Claude Code, or Windsurf are introduced to speed things up.</li>
+          <li><strong>Frameworks are wrappers.</strong> LangChain, LangGraph, CrewAI, and n8n are convenience layers. Solid Python means you could build any of them yourself.</li>
+          <li><strong>Code and resources</strong> shared after each session via the course dashboard or GitHub.</li>
+          <li><strong>Hybrid cloud usage.</strong> Both AWS and Azure will be used. Free tiers are sufficient for most exercises; paid tiers may be needed for advanced projects.</li>
+          <li><strong>Machine learning is still relevant.</strong> Traditional ML (random forest, etc.) often powers the tools that agents use — it's the backbone behind the scenes.</li>
+          <li><strong>Practice is the only path.</strong> Building 3–4 production-grade projects is the minimum to develop real confidence for interviews and roles.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prep for next class -->
+  <div class="section">
+    <div class="section-label">To prepare for next class</div>
+    <div class="card">
+      <div class="card-body">
+        Make sure your <strong>Python fundamentals</strong> are solid — variables, functions, loops, conditionals, file handling. Also review basic <strong>OOP concepts</strong> (classes and objects). If you want a head start, read through the LangChain or LangGraph documentation and use an AI tool to help you navigate the content.
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Tutorial guide generated from Lecture 1 transcript · Agentic AI Course · Instructor: Sachin Mishra
+</footer>
+
+</body>
+</html>
